@@ -30,12 +30,6 @@ md_submod_energy_graph_on_monthly = {
 	set_variable = { energy_con_array^current_gdp_graph_end = md_current_energy_con }
 	set_variable = { energy_bal_array^current_gdp_graph_end = md_current_energy_bal }
 
-	if = {
-		limit = { check_variable = { current_gdp_graph_end = 1 } }
-		set_variable = { energy_gen_array^0 = md_current_energy_gen }
-		set_variable = { energy_con_array^0 = md_current_energy_con }
-		set_variable = { energy_bal_array^0 = md_current_energy_bal }
-	}
 }
 
 # 2. THE MATH TRANSLATOR & FAILSAFE

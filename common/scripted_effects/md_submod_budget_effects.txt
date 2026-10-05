@@ -35,13 +35,6 @@ md_submod_budget_graph_on_monthly = {
 	set_variable = { expense_array^current_gdp_graph_end = md_current_monthly_expense }
 	set_variable = { budget_balance_array^current_gdp_graph_end = md_current_monthly_balance }
 
-	# When month 1 arrives, calibrate index 0 to true calculated baseline
-	if = {
-		limit = { check_variable = { current_gdp_graph_end = 1 } }
-		set_variable = { revenue_array^0 = md_current_monthly_revenue }
-		set_variable = { expense_array^0 = md_current_monthly_expense }
-		set_variable = { budget_balance_array^0 = md_current_monthly_balance }
-	}
 }
 
 # 2. THE MATH TRANSLATOR & FAILSAFE

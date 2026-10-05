@@ -7,7 +7,7 @@ md_sample_trade_metrics = {
 	multiply_temp_variable = { m_exp = 4.33 }
 	set_variable = { md_current_monthly_exports = m_exp }
 
-	# Calculate resource import costs
+	# Estimate imports at resource market prices
 	set_temp_variable = { imp_oil = resource_imported@oil }
 	multiply_temp_variable = { imp_oil = global.oil_price }
 	set_temp_variable = { imp_steel = resource_imported@steel }
@@ -62,12 +62,6 @@ md_submod_trade_graph_on_monthly = {
 	set_variable = { trade_imports_array^current_gdp_graph_end = md_current_monthly_imports }
 	set_variable = { trade_balance_array^current_gdp_graph_end = md_current_monthly_trade_bal }
 
-	if = {
-		limit = { check_variable = { current_gdp_graph_end = 1 } }
-		set_variable = { trade_exports_array^0 = md_current_monthly_exports }
-		set_variable = { trade_imports_array^0 = md_current_monthly_imports }
-		set_variable = { trade_balance_array^0 = md_current_monthly_trade_bal }
-	}
 }
 
 # 2. THE MATH TRANSLATOR & FAILSAFE

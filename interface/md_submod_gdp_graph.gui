@@ -1,21 +1,6 @@
 	# interface/md_submod_gdp_graph.gui
 
 	guiTypes = {
-		containerWindowType = {
-			name = "md_submod_open_button_container"
-			position = { x = 196 y = 13 }
-			Orientation = UPPER_RIGHT
-			origo = UPPER_RIGHT
-
-		buttonType = {
-			name = "md_flax_open_button"
-			position = { x = 0 y = 0 }
-			quadTextureSprite = "GFX_ledger_open_button"
-			pdx_tooltip = "md_graph_plus_open_tt"
-			shortcut = "shift+6"
-		}
-	}
-
 	containerWindowType = {
 		name = "md_gdp_graph_container"
 		position = { x = 0 y = 0 }

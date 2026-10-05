@@ -88,7 +88,7 @@ md_calc_segment_math = {
 
 # -------------------------------------------------------------
 # -------------------------------------------------------------
-# 4. CALENDAR-LOCKED AUTO-SYNC & HEAL
+# 4. CALENDAR-LOCKED CURRENT-SLOT SYNC
 # -------------------------------------------------------------
 md_sync_live_month_data = {
 	# 1. Advance date_scale and shift arrays if current_gdp_graph_end reaches Month 108 (Pointer 9),
@@ -137,44 +137,6 @@ md_sync_live_month_data = {
 	set_variable = { gdp_array^current_gdp_graph_end = gdp_total }
 	set_variable = { gdpc_array^current_gdp_graph_end = gdp_per_capita }
 	set_variable = { prod_array^current_gdp_graph_end = overall_productivity }
-
-	# If slots right before current_gdp_graph_end had an artificial dip/corruption from old debug logic:
-	set_temp_variable = { steps = current_gdp_graph_end }
-	subtract_from_temp_variable = { steps = 95 }
-	if = {
-		limit = {
-			check_variable = { steps > 1 }
-			check_variable = { prod_array^96 < prod_array^95 }
-		}
-		set_temp_variable = { diff_prod = overall_productivity }
-		subtract_from_temp_variable = { diff_prod = prod_array^95 }
-		divide_temp_variable = { diff_prod = steps }
-
-		set_temp_variable = { diff_gdp = gdp_total }
-		subtract_from_temp_variable = { diff_gdp = gdp_array^95 }
-		divide_temp_variable = { diff_gdp = steps }
-
-		set_temp_variable = { diff_gdpc = gdp_per_capita }
-		subtract_from_temp_variable = { diff_gdpc = gdpc_array^95 }
-		divide_temp_variable = { diff_gdpc = steps }
-
-		set_temp_variable = { cur_g = gdp_array^95 }
-		set_temp_variable = { cur_c = gdpc_array^95 }
-		set_temp_variable = { cur_p = prod_array^95 }
-
-		for_loop_effect = {
-			start = 96
-			end = current_gdp_graph_end
-
-			add_to_temp_variable = { cur_g = diff_gdp }
-			add_to_temp_variable = { cur_c = diff_gdpc }
-			add_to_temp_variable = { cur_p = diff_prod }
-
-			set_variable = { gdp_array^v = cur_g }
-			set_variable = { gdpc_array^v = cur_c }
-			set_variable = { prod_array^v = cur_p }
-		}
-	}
 
 	# Also sync live custom arrays if initialized
 	# Must call sampling functions first to populate md_current_* variables

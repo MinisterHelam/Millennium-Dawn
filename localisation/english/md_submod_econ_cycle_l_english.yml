@@ -12,7 +12,6 @@
  energy_subgraph_open: "Energy Grid Graph"
  defense_subgraph_open: "Defense Spending Graph"
  trade_subgraph_open: "Trade Balance Graph"
- md_graph_plus_open_tt: "MD Graph+"
  MD_GRAPH_BTN_GDP: "GDP"
  MD_GRAPH_BTN_GDPC: "GDP/C"
  MD_GRAPH_BTN_PROD: "Prod"
@@ -34,7 +33,7 @@
  MD_GRAPH_BUDGET_BAL_HEADER: "§CNet Balance: $[?md_current_monthly_balance|+2]B/mo§!"
 
  MD_GRAPH_TRADE_EXP_HEADER: "§GMonthly Exports: $[?md_current_monthly_exports|2]B/mo§!"
- MD_GRAPH_TRADE_IMP_HEADER: "§RMonthly Imports: $[?md_current_monthly_imports|2]B/mo§!"
+ MD_GRAPH_TRADE_IMP_HEADER: "§RMonthly Import Estimate: $[?md_current_monthly_imports|2]B/mo§!"
  MD_GRAPH_TRADE_BAL_HEADER: "§CNet Trade Balance: $[?md_current_monthly_trade_bal|+2]B/mo§!"
 
  MD_GRAPH_ENERGY_GEN_HEADER: "§YTotal Generation: [?md_current_energy_gen|1] GW§!"

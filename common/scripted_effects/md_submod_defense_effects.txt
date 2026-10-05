@@ -32,11 +32,6 @@ md_submod_defense_graph_on_monthly = {
 	set_variable = { defense_spend_array^current_gdp_graph_end = md_current_defense_spending }
 	set_variable = { defense_pct_array^current_gdp_graph_end = md_current_defense_pct }
 
-	if = {
-		limit = { check_variable = { current_gdp_graph_end = 1 } }
-		set_variable = { defense_spend_array^0 = md_current_defense_spending }
-		set_variable = { defense_pct_array^0 = md_current_defense_pct }
-	}
 }
 
 # 2. THE MATH TRANSLATOR & FAILSAFE

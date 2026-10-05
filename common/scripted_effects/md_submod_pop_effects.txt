@@ -28,13 +28,6 @@ md_submod_pop_graph_on_monthly = {
 	set_variable = { workforce_array^current_gdp_graph_end = workforce_total_display }
 	set_variable = { employment_array^current_gdp_graph_end = md_current_employment_rate }
 
-	# When month 1 arrives, calibrate index 0 to true calculated baseline to eliminate startup jump/tear!
-	if = {
-		limit = { check_variable = { current_gdp_graph_end = 1 } }
-		set_variable = { pop_array^0 = population_total_m }
-		set_variable = { workforce_array^0 = workforce_total_display }
-		set_variable = { employment_array^0 = md_current_employment_rate }
-	}
 }
 
 # 2. THE MATH TRANSLATOR & FAILSAFE

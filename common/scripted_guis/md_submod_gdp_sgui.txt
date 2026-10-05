@@ -1,35 +1,6 @@
 scripted_gui = {
 
 	# ---------------------------------------------------------
-	# 1. THE OPEN BUTTON (Attached to Main Map)
-	# ---------------------------------------------------------
-	md_submod_open_button_sgui = {
-		window_name = "md_submod_open_button_container"
-		parent_window_name = "MapmodesInterface_Ingame"
-		context_type = player_context
-		dirty = gdp_graph_dirty_var
-		visible = {
-			has_game_rule = { rule = disable_gdp_graph option = no }
-		}
-
-		effects = {
-			md_flax_open_button_click = {
-				if = {
-					limit = {
-						check_variable = { md_graph_tab > 0 }
-					}
-					# If ANY tab is open, close them all
-					md_close_all_graph_tabs = yes
-				}
-				else = {
-					# Defaults to opening the main GDP tab
-					md_open_tab_gdp = yes
-				}
-			}
-		}
-	}
-
-	# ---------------------------------------------------------
 	# 2. THE MAIN GDP TAB (md_graph_tab = 1)
 	# ---------------------------------------------------------
 	md_submod_line_graph_gui = {
