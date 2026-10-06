@@ -80,3 +80,30 @@ defined_text = {
 		localization_key = "[Western_Autocracy_L]"
 	}
 }
+
+defined_text = {
+	name = gdp_graph_econ_cycle
+	text = {
+		trigger = { has_idea = recession }
+		localization_key = gdp_graph_cycle_recession
+	}
+	text = {
+		trigger = { has_idea = stagnation }
+		localization_key = gdp_graph_cycle_stagnation
+	}
+	text = {
+		trigger = { has_idea = stable_growth }
+		localization_key = gdp_graph_cycle_stable
+	}
+	text = {
+		trigger = { has_idea = fast_growth }
+		localization_key = gdp_graph_cycle_fast
+	}
+	text = {
+		trigger = { has_idea = economic_boom }
+		localization_key = gdp_graph_cycle_boom
+	}
+	text = {
+		localization_key = gdp_graph_cycle_calculating
+	}
+}
