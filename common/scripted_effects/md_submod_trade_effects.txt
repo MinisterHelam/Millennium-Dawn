@@ -49,30 +49,7 @@ md_submod_trade_graph_init = {
 	resize_array = { array = trade_balance_array value = md_current_monthly_trade_bal size = 120 }
 }
 
-# 1. THE TRADE MONTHLY SHIFTER (Self-Healing)
-md_submod_trade_graph_on_monthly = {
-	md_sample_trade_metrics = yes
-
-	if = {
-		limit = { NOT = { check_variable = { trade_exports_array^num > 0 } } }
-		md_submod_trade_graph_init = yes
-	}
-
-	set_variable = { trade_exports_array^current_gdp_graph_end = md_current_monthly_exports }
-	set_variable = { trade_imports_array^current_gdp_graph_end = md_current_monthly_imports }
-	set_variable = { trade_balance_array^current_gdp_graph_end = md_current_monthly_trade_bal }
-
-}
-
-# 2. THE MATH TRANSLATOR & FAILSAFE
 update_md_flaxbeard_trade_graph = {
-	md_sample_trade_metrics = yes
-
-	if = {
-		limit = { NOT = { check_variable = { trade_exports_array^num > 0 } } }
-		md_submod_trade_graph_init = yes
-	}
-
 	clear_array = md_flax_offsets_trade_exp_green
 	clear_array = md_flax_slopes_trade_exp
 

@@ -87,103 +87,42 @@ md_calc_segment_math = {
 }
 
 # -------------------------------------------------------------
-# -------------------------------------------------------------
-# 4. CALENDAR-LOCKED CURRENT-SLOT SYNC
+# 4. CURRENT-SLOT SYNC
 # -------------------------------------------------------------
 md_sync_live_month_data = {
-	# 1. Advance date_scale and shift arrays if current_gdp_graph_end reaches Month 108 (Pointer 9),
-	# OR if the calendar year has caught up to or passed date_scale^9.
-	# The chart spans 108 months (Years 1-9 on Pointers 0-8, with Pointer 9 reserved for the end of the year).
-	if = {
-		limit = {
-			OR = {
-				check_variable = { current_gdp_graph_end > 107 }
-				AND = {
-					check_variable = { global.year > 1999 }
-					NOT = { check_variable = { date_scale^9 > global.year } }
-				}
-			}
-		}
-		gdp_graph_shift_array = yes
-	}
-
-	# Ensure current_gdp_graph_end accurately aligns with current calendar month within visible 9-year frame
-	if = {
-		limit = {
-			check_variable = { global.year > 1999 }
-			check_variable = { date_scale^0 > 1999 }
-		}
-		set_temp_variable = { target_slot = global.year }
-		subtract_from_temp_variable = { target_slot = date_scale^0 }
-		multiply_temp_variable = { target_slot = 12 }
-		set_temp_variable = { month_offset = global.month }
-		subtract_from_temp_variable = { month_offset = 1 }
-		add_to_temp_variable = { target_slot = month_offset }
-
-		if = {
-			limit = {
-				NOT = { check_variable = { target_slot < 0 } }
-				NOT = { check_variable = { target_slot > 107 } }
-			}
-			set_variable = { current_gdp_graph_end = target_slot }
-		}
-	}
-
-	# Clamp to valid 9-year visible range (0..107)
-	if = { limit = { check_variable = { current_gdp_graph_end < 0 } } set_variable = { current_gdp_graph_end = 0 } }
-	if = { limit = { check_variable = { current_gdp_graph_end > 107 } } set_variable = { current_gdp_graph_end = 107 } }
-
-	# 2. Always ensure the active calendar slot has the live economy values
 	set_variable = { gdp_array^current_gdp_graph_end = gdp_total }
 	set_variable = { gdpc_array^current_gdp_graph_end = gdp_per_capita }
 	set_variable = { prod_array^current_gdp_graph_end = overall_productivity }
 
-	# Also sync live custom arrays if initialized
-	# Must call sampling functions first to populate md_current_* variables
-	if = {
-		limit = { check_variable = { debt_array^num > 0 } }
-		set_variable = { debt_array^current_gdp_graph_end = debt }
-	}
-	if = {
-		limit = { check_variable = { inflation_array^num > 0 } }
-		set_temp_variable = { sync_infl_pct = inflation_rate_var }
-		multiply_temp_variable = { sync_infl_pct = 100 }
-		set_variable = { inflation_array^current_gdp_graph_end = sync_infl_pct }
-	}
-	if = {
-		limit = { check_variable = { pop_array^num > 0 } }
-		md_sample_pop_metrics = yes
-		set_variable = { pop_array^current_gdp_graph_end = population_total_m }
-		set_variable = { workforce_array^current_gdp_graph_end = workforce_total_display }
-		set_variable = { employment_array^current_gdp_graph_end = md_current_employment_rate }
-	}
-	if = {
-		limit = { check_variable = { revenue_array^num > 0 } }
-		md_sample_budget_metrics = yes
-		set_variable = { revenue_array^current_gdp_graph_end = md_current_monthly_revenue }
-		set_variable = { expense_array^current_gdp_graph_end = md_current_monthly_expense }
-		set_variable = { budget_balance_array^current_gdp_graph_end = md_current_monthly_balance }
-	}
-	if = {
-		limit = { check_variable = { energy_gen_array^num > 0 } }
-		md_sample_energy_metrics = yes
-		set_variable = { energy_gen_array^current_gdp_graph_end = md_current_energy_gen }
-		set_variable = { energy_con_array^current_gdp_graph_end = md_current_energy_con }
-		set_variable = { energy_bal_array^current_gdp_graph_end = md_current_energy_bal }
-	}
-	if = {
-		limit = { check_variable = { defense_spend_array^num > 0 } }
-		md_sample_defense_metrics = yes
-		set_variable = { defense_spend_array^current_gdp_graph_end = md_current_defense_spending }
-		set_variable = { defense_pct_array^current_gdp_graph_end = md_current_defense_pct }
-	}
-	if = {
-		limit = { check_variable = { trade_exports_array^num > 0 } }
-		md_sample_trade_metrics = yes
-		set_variable = { trade_exports_array^current_gdp_graph_end = md_current_monthly_exports }
-		set_variable = { trade_imports_array^current_gdp_graph_end = md_current_monthly_imports }
-		set_variable = { trade_balance_array^current_gdp_graph_end = md_current_monthly_trade_bal }
-	}
+	set_variable = { debt_array^current_gdp_graph_end = debt }
+
+	set_temp_variable = { sync_infl_pct = inflation_rate_var }
+	multiply_temp_variable = { sync_infl_pct = 100 }
+	set_variable = { inflation_array^current_gdp_graph_end = sync_infl_pct }
+
+	md_sample_pop_metrics = yes
+	set_variable = { pop_array^current_gdp_graph_end = population_total_m }
+	set_variable = { workforce_array^current_gdp_graph_end = workforce_total_display }
+	set_variable = { employment_array^current_gdp_graph_end = md_current_employment_rate }
+
+	md_sample_budget_metrics = yes
+	set_variable = { revenue_array^current_gdp_graph_end = md_current_monthly_revenue }
+	set_variable = { expense_array^current_gdp_graph_end = md_current_monthly_expense }
+	set_variable = { budget_balance_array^current_gdp_graph_end = md_current_monthly_balance }
+
+	md_sample_energy_metrics = yes
+	set_variable = { energy_gen_array^current_gdp_graph_end = md_current_energy_gen }
+	set_variable = { energy_con_array^current_gdp_graph_end = md_current_energy_con }
+	set_variable = { energy_bal_array^current_gdp_graph_end = md_current_energy_bal }
+
+	md_sample_defense_metrics = yes
+	set_variable = { defense_spend_array^current_gdp_graph_end = md_current_defense_spending }
+	set_variable = { defense_pct_array^current_gdp_graph_end = md_current_defense_pct }
+
+	md_sample_trade_metrics = yes
+	set_variable = { trade_exports_array^current_gdp_graph_end = md_current_monthly_exports }
+	set_variable = { trade_imports_array^current_gdp_graph_end = md_current_monthly_imports }
+	set_variable = { trade_balance_array^current_gdp_graph_end = md_current_monthly_trade_bal }
 }
 
 # -------------------------------------------------------------
@@ -247,4 +186,3 @@ md_close_all_graph_tabs = {
 	set_variable = { md_graph_tab = 0 }
 	gdp_graph_update_dirty_var = yes
 }
-

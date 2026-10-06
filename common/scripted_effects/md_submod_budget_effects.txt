@@ -22,30 +22,7 @@ md_submod_budget_graph_init = {
 	resize_array = { array = budget_balance_array value = md_current_monthly_balance size = 120 }
 }
 
-# 1. THE BUDGET MONTHLY SHIFTER (Self-Healing)
-md_submod_budget_graph_on_monthly = {
-	md_sample_budget_metrics = yes
-
-	if = {
-		limit = { NOT = { check_variable = { revenue_array^num > 0 } } }
-		md_submod_budget_graph_init = yes
-	}
-
-	set_variable = { revenue_array^current_gdp_graph_end = md_current_monthly_revenue }
-	set_variable = { expense_array^current_gdp_graph_end = md_current_monthly_expense }
-	set_variable = { budget_balance_array^current_gdp_graph_end = md_current_monthly_balance }
-
-}
-
-# 2. THE MATH TRANSLATOR & FAILSAFE
 update_md_flaxbeard_budget_graph = {
-	md_sample_budget_metrics = yes
-
-	if = {
-		limit = { NOT = { check_variable = { revenue_array^num > 0 } } }
-		md_submod_budget_graph_init = yes
-	}
-
 	clear_array = md_flax_offsets_revenue_green
 	clear_array = md_flax_offsets_revenue_red
 	clear_array = md_flax_slopes_revenue

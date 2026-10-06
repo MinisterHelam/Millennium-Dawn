@@ -15,30 +15,7 @@ md_submod_pop_graph_init = {
 	resize_array = { array = employment_array value = md_current_employment_rate size = 120 }
 }
 
-# 1. THE POPULATION & WORKFORCE MONTHLY RECORDER
-md_submod_pop_graph_on_monthly = {
-	md_sample_pop_metrics = yes
-
-	if = {
-		limit = { NOT = { check_variable = { pop_array^num > 0 } } }
-		md_submod_pop_graph_init = yes
-	}
-
-	set_variable = { pop_array^current_gdp_graph_end = population_total_m }
-	set_variable = { workforce_array^current_gdp_graph_end = workforce_total_display }
-	set_variable = { employment_array^current_gdp_graph_end = md_current_employment_rate }
-
-}
-
-# 2. THE MATH TRANSLATOR & FAILSAFE
 update_md_flaxbeard_pop_graph = {
-	md_sample_pop_metrics = yes
-
-	if = {
-		limit = { NOT = { check_variable = { pop_array^num > 0 } } }
-		md_submod_pop_graph_init = yes
-	}
-
 	clear_array = md_flax_offsets_pop_blue
 	clear_array = md_flax_offsets_pop_red
 	clear_array = md_flax_slopes_pop

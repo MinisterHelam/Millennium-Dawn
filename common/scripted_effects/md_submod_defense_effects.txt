@@ -20,29 +20,7 @@ md_submod_defense_graph_init = {
 	resize_array = { array = defense_pct_array value = md_current_defense_pct size = 120 }
 }
 
-# 1. THE DEFENSE MONTHLY SHIFTER (Self-Healing)
-md_submod_defense_graph_on_monthly = {
-	md_sample_defense_metrics = yes
-
-	if = {
-		limit = { NOT = { check_variable = { defense_spend_array^num > 0 } } }
-		md_submod_defense_graph_init = yes
-	}
-
-	set_variable = { defense_spend_array^current_gdp_graph_end = md_current_defense_spending }
-	set_variable = { defense_pct_array^current_gdp_graph_end = md_current_defense_pct }
-
-}
-
-# 2. THE MATH TRANSLATOR & FAILSAFE
 update_md_flaxbeard_defense_graph = {
-	md_sample_defense_metrics = yes
-
-	if = {
-		limit = { NOT = { check_variable = { defense_spend_array^num > 0 } } }
-		md_submod_defense_graph_init = yes
-	}
-
 	clear_array = md_flax_offsets_defense_blue
 	clear_array = md_flax_offsets_defense_red
 	clear_array = md_flax_slopes_defense

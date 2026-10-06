@@ -17,30 +17,7 @@ md_submod_energy_graph_init = {
 	resize_array = { array = energy_bal_array value = md_current_energy_bal size = 120 }
 }
 
-# 1. THE ENERGY MONTHLY SHIFTER (Self-Healing)
-md_submod_energy_graph_on_monthly = {
-	md_sample_energy_metrics = yes
-
-	if = {
-		limit = { NOT = { check_variable = { energy_gen_array^num > 0 } } }
-		md_submod_energy_graph_init = yes
-	}
-
-	set_variable = { energy_gen_array^current_gdp_graph_end = md_current_energy_gen }
-	set_variable = { energy_con_array^current_gdp_graph_end = md_current_energy_con }
-	set_variable = { energy_bal_array^current_gdp_graph_end = md_current_energy_bal }
-
-}
-
-# 2. THE MATH TRANSLATOR & FAILSAFE
 update_md_flaxbeard_energy_graph = {
-	md_sample_energy_metrics = yes
-
-	if = {
-		limit = { NOT = { check_variable = { energy_gen_array^num > 0 } } }
-		md_submod_energy_graph_init = yes
-	}
-
 	clear_array = md_flax_offsets_energy_gen_yellow
 	clear_array = md_flax_slopes_energy_gen
 

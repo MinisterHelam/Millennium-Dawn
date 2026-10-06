@@ -6,26 +6,7 @@ md_submod_inflation_graph_init = {
 	resize_array = { array = inflation_array value = init_infl_pct size = 120 }
 }
 
-# 1. THE INFLATION MONTHLY RECORDER
-md_submod_inflation_graph_on_monthly = {
-	set_temp_variable = { current_infl_pct = inflation_rate_var }
-	multiply_temp_variable = { current_infl_pct = 100 }
-
-	if = {
-		limit = { NOT = { check_variable = { inflation_array^num > 0 } } }
-		md_submod_inflation_graph_init = yes
-	}
-	set_variable = { inflation_array^current_gdp_graph_end = current_infl_pct }
-
-}
-
-# 2. THE MATH TRANSLATOR & FAILSAFE
 update_md_flaxbeard_inflation_graph = {
-	if = {
-		limit = { NOT = { check_variable = { inflation_array^num > 0 } } }
-		md_submod_inflation_graph_init = yes
-	}
-
 	clear_array = md_flax_offsets_inflation_green
 	clear_array = md_flax_offsets_inflation_red
 	clear_array = md_flax_slopes_inflation

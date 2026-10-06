@@ -22,6 +22,14 @@ graph_initial_setup = {
 		size = 120
 	}
 
+	md_submod_debt_graph_init = yes
+	md_submod_inflation_graph_init = yes
+	md_submod_pop_graph_init = yes
+	md_submod_budget_graph_init = yes
+	md_submod_energy_graph_init = yes
+	md_submod_defense_graph_init = yes
+	md_submod_trade_graph_init = yes
+
 	set_temp_variable = { tmp = global.year }
 	for_loop_effect = {
 		start = 0
@@ -121,17 +129,24 @@ gdp_graph_shift_array = {
 
 # Base MD monthly hook called from MD_on_actions
 gdp_graph_on_monthly = {
-	# Advance month index
 	add_to_variable = { current_gdp_graph_end = 1 }
-	set_variable = { gdp_array^current_gdp_graph_end = gdp_total }
-	set_variable = { gdpc_array^current_gdp_graph_end = gdp_per_capita }
-	set_variable = { prod_array^current_gdp_graph_end = overall_productivity }
-
-	# If we reach month 108 (Pointer 9, Year 10 Jan), shift immediately!
+	# Shift before recording so the new month lands in the slot the shift frees
 	if = {
 		limit = { check_variable = { current_gdp_graph_end > 107 } }
 		gdp_graph_shift_array = yes
 	}
+	md_sync_live_month_data = yes
+
+	if = { limit = { check_variable = { md_graph_tab = 1 } } update_md_flaxbeard_gdp_graph = yes }
+	if = { limit = { check_variable = { md_graph_tab = 2 } } update_md_flaxbeard_gdpc_graph = yes }
+	if = { limit = { check_variable = { md_graph_tab = 3 } } update_md_flaxbeard_prod_graph = yes }
+	if = { limit = { check_variable = { md_graph_tab = 4 } } update_md_flaxbeard_debt_graph = yes }
+	if = { limit = { check_variable = { md_graph_tab = 5 } } update_md_flaxbeard_inflation_graph = yes }
+	if = { limit = { check_variable = { md_graph_tab = 6 } } update_md_flaxbeard_pop_graph = yes }
+	if = { limit = { check_variable = { md_graph_tab = 7 } } update_md_flaxbeard_budget_graph = yes }
+	if = { limit = { check_variable = { md_graph_tab = 8 } } update_md_flaxbeard_energy_graph = yes }
+	if = { limit = { check_variable = { md_graph_tab = 9 } } update_md_flaxbeard_defense_graph = yes }
+	if = { limit = { check_variable = { md_graph_tab = 10 } } update_md_flaxbeard_trade_graph = yes }
 }
 
 gdp_graph_update_dirty_var = {

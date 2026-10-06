@@ -4,22 +4,7 @@ md_submod_debt_graph_init = {
 	resize_array = { array = debt_array value = debt size = 120 }
 }
 
-# 1. THE DEBT MONTHLY RECORDER
-md_submod_debt_graph_on_monthly = {
-	if = {
-		limit = { NOT = { check_variable = { debt_array^num > 0 } } }
-		md_submod_debt_graph_init = yes
-	}
-	set_variable = { debt_array^current_gdp_graph_end = debt }
-}
-
-# 2. THE MATH TRANSLATOR & FAILSAFE
 update_md_flaxbeard_debt_graph = {
-	if = {
-		limit = { NOT = { check_variable = { debt_array^num > 0 } } }
-		md_submod_debt_graph_init = yes
-	}
-
 	clear_array = md_flax_offsets_debt_green
 	clear_array = md_flax_offsets_debt_red
 	clear_array = md_flax_slopes_debt
